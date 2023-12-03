@@ -1,0 +1,330 @@
+{
+	"info": {
+		"_postman_id": "27a65bf8-965f-4e1f-a7ca-ac23afbf2aae",
+		"name": "fakerestapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31079306"
+	},
+	"item": [
+		{
+			"name": "Activities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the length of the response data",
+							"pm.test(\"Response data length must be greater than zero\", function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+							"    responseData.forEach((activity) => {",
+							"        pm.expect(activity).to.be.an('object').that.has.property('id');",
+							"        pm.expect(activity).to.be.an('object').that.has.property('title');",
+							"        pm.expect(activity).to.be.an('object').that.has.property('dueDate');",
+							"        pm.expect(activity).to.be.an('object').that.has.property('completed');",
+							"    });",
+							"});",
+							"pm.test(\"Response time is within acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Test to check if the response has the correct content type",
+							"pm.test(\"Response has the correct content type\", function () {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+							"});",
+							"",
+							"pm.test(\"Schema is valid\", function () {",
+							"  var schema = {",
+							"    type: \"array\",",
+							"    items: {",
+							"      type: \"object\",",
+							"      properties: {",
+							"        id: { type: \"number\" },",
+							"        title: { type: \"string\" },",
+							"        dueDate: { type: \"string\" },",
+							"        completed: { type: \"boolean\" }",
+							"      },",
+							"      required: [\"id\", \"title\", \"dueDate\", \"completed\"]",
+							"    }",
+							"  };",
+							"",
+							"  var response = pm.response.json();",
+							"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v1/Activities",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"Activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activitiy-create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the length of response data",
+							"pm.test(\"The response data length must be greater than zero\", function () {",
+							"    const responseData = pm.response.json();",
+							"   ",
+							"    pm.expect(Object.keys(responseData).length).to.be.greaterThan(0, \"Response data should not be empty\");",
+							"});",
+							"",
+							"// Test for response time within acceptable range",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Test for response content type",
+							"pm.test(\"Response has a valid content type\", function () {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+							"});",
+							"",
+							"pm.test(\"Schema is valid\", function () {",
+							"  var schema = {",
+							"    type: \"object\",",
+							"    properties: {",
+							"      id: { type: \"number\" },",
+							"      title: { type: \"string\" },",
+							"      dueDate: { type: \"string\" },",
+							"      completed: { type: \"boolean\" }",
+							"    },",
+							"    required: [\"id\", \"title\", \"dueDate\", \"completed\"],",
+							"  };",
+							"",
+							"  var response = pm.response.json();",
+							"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": {{activity_id}},\n  \"title\": \"test\",\n  \"dueDate\": \"2023-12-02T10:37:33.312Z\",\n  \"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/Activities",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"Activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activitiy-get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the length of response data",
+							"pm.test(\"The response data length must be greater than zero\", function () {",
+							"    const responseData = pm.response.json();",
+							"   ",
+							"    pm.expect(Object.keys(responseData).length).to.be.greaterThan(0, \"Response data should not be empty\");",
+							"});",
+							"",
+							"// Test for response time within acceptable range",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Test for response content type",
+							"pm.test(\"Response has a valid content type\", function () {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+							"});",
+							"",
+							"pm.test(\"Schema is valid\", function () {",
+							"  var schema = {",
+							"    type: \"object\",",
+							"    properties: {",
+							"      id: { type: \"number\" },",
+							"      title: { type: \"string\" },",
+							"      dueDate: { type: \"string\" },",
+							"      completed: { type: \"boolean\" }",
+							"    },",
+							"    required: [\"id\", \"title\", \"dueDate\", \"completed\"],",
+							"  };",
+							"",
+							"  var response = pm.response.json();",
+							"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v1/Activities/{{activity_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"Activities",
+						"{{activity_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activitiy-update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the length of response data",
+							"pm.test(\"The response data length must be greater than zero\", function () {",
+							"    const responseData = pm.response.json();",
+							"   ",
+							"    pm.expect(Object.keys(responseData).length).to.be.greaterThan(0, \"Response data should not be empty\");",
+							"});",
+							"",
+							"// Test for response time within acceptable range",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Test for response content type",
+							"pm.test(\"Response has a valid content type\", function () {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 31,\n  \"title\": \"test17.388\",\n  \"dueDate\": \"2023-12-02T10:37:33.312Z\",\n  \"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/Activities/{{activity_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"Activities",
+						"{{activity_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activitiy-delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for response time within acceptable range",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v1/Activities/{{activity_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"Activities",
+						"{{activity_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://fakerestapi.azurewebsites.net/api",
+			"type": "string"
+		},
+		{
+			"key": "activity_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}

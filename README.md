@@ -1,5 +1,5 @@
 # automation-ruby
-This Repository are contains automation script using Ruby Language + Cucumber for Frontend Automation Test and Backend Automation Test, Postman Collections and GSheet contains Bug
+This Repository are contains automation script using Ruby Language + Cucumber for Frontend Automation Test and Backend Automation Test, and Postman Collections.
 
 How to run for Web Automation Part (Before running the automation make sure to install Ruby and Bundle):
 1. cd ruby-cucumber-saucedemo
